@@ -1,0 +1,25 @@
+{
+  "name": "pokedexbattleviewer",
+  "version": "1.0.0",
+  "description": "A Pokédex that focuses on the battle side of Pokémon, including type matchups and rankings",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moham3dAhm3d/PokedexBattleViewer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Moham3dAhm3d/PokedexBattleViewer/issues"
+  },
+  "homepage": "https://github.com/Moham3dAhm3d/PokedexBattleViewer#readme",
+  "dependencies": {
+    "localdex": "^0.1.1"
+  }
+}
