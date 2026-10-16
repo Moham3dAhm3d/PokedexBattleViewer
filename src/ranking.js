@@ -31,18 +31,15 @@ export function getDefensiveScore(defenseType) {
 export function getTotalScore(type) {
   const offensive = getOffensiveScore(type);
   const defensive = getDefensiveScore(type);
+  
+  // Invert the defensive score so that a lower defensive score contributes positively
+  const invertedDefensive = 2 - defensive; 
+  
   return {
     type,
     offensive: offensive.toFixed(3),
     defensive: defensive.toFixed(3),
-    total: (offensive + defensive).toFixed(3),
+    invertedDefensive: invertedDefensive.toFixed(3), // Optioneel, voor debugging
+    total: (offensive + invertedDefensive).toFixed(3),
   };
-}
-
-/**
- * Returns a ranking of all types based on their total score
- */
-export function getRanking() {
-  const scores = allTypes.map(type => getTotalScore(type));
-  return scores.sort((a, b) => b.total - a.total);
 }
