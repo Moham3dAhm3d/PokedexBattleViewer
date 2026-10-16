@@ -3,26 +3,43 @@ import { Dex } from 'localdex';
 import { getWeaknesses, getResistances } from './typeEffectiveness.js';
 import { getRanking } from './ranking.js';
 
-// show the ranking of all types
-console.log('\n=== TYPE RANKING ===');
-const ranking = getRanking();
-ranking.forEach((entry, index) => {
-  console.log(`${index + 1}. ${entry.type} - Total: ${entry.total} (Off: ${entry.offensive}, Def: ${entry.defensive})`);
-});
+// 1. Read the command line arguments
+const args = process.argv.slice(2);
+const command = args[0];
 
-// Look up a mon
-const pokemonName = 'Garchomp';
-const pokemon = Dex.pokemon(pokemonName);
+if (!command) {
+  console.log("Please provide a Pokémon name or the command 'ranking'.");
+  console.log("Usage: npm start <pokemon_name>");
+  console.log("Example: npm start garchomp");
+  console.log("Usage: npm start ranking");
+  process.exit(1);
+}
 
-if (pokemon) {
-  console.log(`\n--- ${pokemon.name} ---`);
-  console.log(`Types: ${pokemon.types.join(' / ')}`);
+// 2. If the user types 'ranking', show the type ranking
+if (command.toLowerCase() === 'ranking') {
+  console.log('\n=== TYPE RANKING ===');
+  const ranking = getRanking();
+  ranking.forEach((entry, index) => {
+    console.log(`${index + 1}. ${entry.type} - Total: ${entry.total} (Off: ${entry.offensive}, Def: ${entry.defensive})`);
+  });
+} 
+// 3. Otherwise, look up the mon
+else {
+  const pokemonName = command;
+  const pokemon = Dex.pokemon(pokemonName);
 
-  const weaknesses = getWeaknesses(pokemon.types);
-  console.log('\nWeaknesses:');
-  weaknesses.forEach(w => console.log(`  ${w.type} (${w.multiplier}x)`));
+  if (pokemon) {
+    console.log(`\n--- ${pokemon.name} ---`);
+    console.log(`Types: ${pokemon.types.join(' / ')}`);
 
-  const resistances = getResistances(pokemon.types);
-  console.log('\nResistances/Immunities:');
-  resistances.forEach(r => console.log(`  ${r.type} (${r.multiplier}x)`));
+    const weaknesses = getWeaknesses(pokemon.types);
+    console.log('\nWeaknesses:');
+    weaknesses.forEach(w => console.log(`  ${w.type} (${w.multiplier}x)`));
+
+    const resistances = getResistances(pokemon.types);
+    console.log('\nResistances/Immunities:');
+    resistances.forEach(r => console.log(`  ${r.type} (${r.multiplier}x)`));
+  } else {
+    console.log(`Pokémon "${pokemonName}" not found.`);
+  }
 }
