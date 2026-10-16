@@ -1,6 +1,6 @@
-# Pokédex Battle Viewer
+# Pokedex Battle Viewer
 
-A Pokédex that focuses on the battle side of Pokémon, including type matchups and rankings.
+A Pokedex that focuses on the battle side of Pokemon, including type matchups and rankings.
 
 ## Features
 
